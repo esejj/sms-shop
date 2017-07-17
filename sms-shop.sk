@@ -1,0 +1,34 @@
+# [ /s /c /r /i /p /t ]
+# name: sms-shop
+# version: 0.1
+# creator: esej            
+# date: 17.07.2017 (12:02)
+# [ s\ c\ r\ i\ p\ t\ ]
+
+options:
+
+	# ilosc znakow z kodu... 
+	sms-code-character: 6
+	
+command /esej:sms-shop [<player>] [<text>] [<text>]:
+	description: Skrypt nadajacy rangi oraz dostarczajacy przedmioty po zakupie.
+	aliases: /sms-shop
+	permission: esej.sms-shop.command
+	permission message: &8» &cNie posiadasz uprawnien &8(&3esej.sms-shop.tools&8)
+	trigger:
+		if argument 2 is "nadaj":
+			if argument 3 is set:
+				execute console command "pex user %player-argument% group set %argument 3%"
+				send "&8» &6Zakupiles range: &e&l%argument 3%" to the player-argument
+				broadcast "&8» &3%player-argument% &6zakupil &e&l%argument 3%"
+				stop
+			else:
+				send "[eSMS-SHOP] Isn't set rank..." to the console
+				send "[eSMS-SHOP] Buyer is %player-argument%" to the console
+				wl "[sms-shop] (%now%) error: isn't set rank for %player-argument%" to "sms-shop.log"
+				stop
+		if argument 2 is "daj":
+			if argument 3 is set:
+				execute command "{@daj-function}"
+				send "{@daj-message}" to the player
+				stop
